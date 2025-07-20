@@ -52,10 +52,13 @@
             <li class="nav-item">
               <a class="nav-link" href="./sub/aboutus.html">About us</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="login-item">
               <a id="login" class="nav-link" href="javascript:void(0);"
                 onclick="document.querySelector('.bg-modal').style.display = 'flex'">Login</a>
-
+            </li>
+            <li class="nav-item" id="user-item" style="display: flex; align-items: center;">
+              <span id="username" class="nav-link" style="padding-right: 0.75rem;">Hi, username</span>
+              <a id="logout" class="nav-link" href="#" style="padding-left: 0.75rem;">Log out</a>
             </li>
           </ul>
 
@@ -69,10 +72,7 @@
       </div>
       <div class="search-box mx-auto">
         <img src="icons/search.png" alt="search icon" class="search-icon">
-        <input type="text" class="input" placeholder="Search for events, venues and cities"> </text>
-
-
-
+        <input type="text" id="search-input" class="input" placeholder="Search for events, venues and cities">
       </div>
 
       <a href="#categories">
@@ -124,7 +124,7 @@
       <div class="categories-column col-lg-4 col-md-4 col-sm-6 col-6">
 
 
-        <button type="button" class="btn  btn-lg btn-block  text-left categories-button">
+        <button type="button" class="btn btn-lg btn-block  text-left categories-button">
           <img src="icons/club.png" alt="club" class="categories-icon">
           Clubs
 
@@ -359,7 +359,7 @@
     <div class="container-fluid">
 
       <div class="row">
-        <div class="col-12 col-lg-6 col-md-6 col-sm-12  ">
+        <div class="col-12 col-lg-6 col-md-6 col-sm-12 text-center">
           <img id="phone" src="Photos/Phone part.png" alt="phone">
 
         </div>
@@ -476,9 +476,68 @@
 
   </section>
 
+  <!-- Login Modal (id ile ve sadece login için) -->
+  <div id="login-modal" class="bg-modal" style="display:none;">
+    <div class="modal-content">
+      <div class="close" onclick="document.getElementById('login-modal').style.display = 'none'">+</div>
+      <button onclick="window.location.href='https://facebook.com';" type="button"
+        class="btn modal-button facebook-button">
+        <img src="icons/facebook.png" alt="facebook icon" class="facebook-icon">
+        <span>Continue with Facebook</span>
+      </button>
+      <div class="hr-part">
+        <hr id="hr1">
+        <p>or</p>
+        <hr id="hr2">
+      </div>
+      <form id="login-form" class="form-wrapper">
+        <div class="modal-box mx-auto">
+          <input type="email" id="email" class="email" placeholder="Type your email" required>
+        </div>
+        <div class="modal-box2 mx-auto">
+          <button type="submit" class="btn btn-block modal-button">Send Code</button>
+        </div>
+      </form>
+      <form id="code-form" class="form-wrapper" style="display: none;">
+        <div class="modal-box mx-auto">
+          <input type="text" id="verification-code" class="email" placeholder="Enter the 6-digit code" required>
+        </div>
+        <div class="modal-box2 mx-auto">
+          <button type="submit" class="btn btn-block modal-button">Verify Code</button>
+        </div>
+      </form>
+      <p id="finish-p">
+        By proceeding you confirm that your are 16 years or older and agree with our
+        <a href="./sub/terms.html">terms and conditions.</a>
+      </p>
+    </div>
+  </div>
 
-
-
+  <!-- Search Modal (zaten doğru) -->
+  <div id="search-modal" class="bg-modal" style="display:none; z-index:9999;">
+    <div class="modal-content" style="max-width:400px;">
+      <span class="close" onclick="document.getElementById('search-modal').style.display='none'">+</span>
+      <div id="search-step1" style="display:block;">
+        <h5>Select Event</h5>
+        <select id="event-select" class="form-control"></select>
+        <button id="event-next-btn" class="btn btn-primary mt-3 btn-block">Next</button>
+      </div>
+      <div id="search-step2" style="display:none;">
+        <h5>Select Location</h5>
+        <select id="place-select" class="form-control"></select>
+        <button id="place-next-btn" class="btn btn-primary mt-3 btn-block">Next</button>
+      </div>
+      <div id="search-step3" style="display:none;">
+        <h5>Select Date</h5>
+        <input type="date" id="date-input" class="form-control">
+        <button id="date-next-btn" class="btn btn-primary mt-3 btn-block">Confirm</button>
+      </div>
+      <div id="search-step4" style="display:none;">
+        <h5 id="confirm-message"></h5>
+        <button class="btn btn-success btn-block" onclick="document.getElementById('search-modal').style.display='none'">Close</button>
+      </div>
+    </div>
+  </div>
 
   <section id="Footer">
 
@@ -545,7 +604,7 @@
   </div>
 
 
-  <!-- ✅ FORM STARTS HERE -->
+  <!-- ✅ FORM STARTS HERE 
   <form id="login-form" class="form-wrapper">
     <div class="modal-box mx-auto">
       <input type="email" id="email" class="email" placeholder="Type your email" required>
@@ -556,52 +615,40 @@
     </div>
   </form>
 
-  <!-- Yeni kod doğrulama alanı -->
-  <form id="verify-form" class="form-wrapper" style="display:none;">
-    <div class="modal-box mx-auto">
-      <input type="text" id="code" placeholder="Enter the 6-digit code" required>
-    </div>
-
-    <div class="modal-box2 mx-auto">
-      <button type="submit" class="btn btn-block modal-button">Verify Code</button>
-    </div>
-  </form>
-
-  </form>
-  <!-- ✅ FORM ENDS HERE -->
-
-  <p id="finish-p">
-    By proceeding you confirm that your are 16 years or older and agree with our
-    <a href="./sub/terms .html">terms and conditions.</a>
-  </p>
-  </div>
-  </div>
-  <!-- Kod girme alanı (başta gizli) -->
-  <form id="code-form" class="form-wrapper" style="display: none;">
-    <div class="modal-box mx-auto">
-      <input type="text" id="verification-code" class="email" placeholder="Enter your verification code" required>
-    </div>
-    <div class="modal-box2 mx-auto">
-      <button type="submit" class="btn btn-block modal-button">Verify</button>
-    </div>
-  </form>
-
+  
 
   <!-- Bootstrap Scripts -->
   <script type="text/javascript" src="scripts/script.js"></script>
   <script>
-    window.addEventListener('DOMContentLoaded', () => {
+    function updateNavbar() {
       const userEmail = localStorage.getItem('userEmail');
+      const loginItem = document.getElementById('login-item');
+      const userItem = document.getElementById('user-item');
+      const usernameSpan = document.getElementById('username');
+      const logoutLink = document.getElementById('logout');
       if (userEmail) {
         const username = userEmail.split('@')[0];
-        const loginLink = document.getElementById('login');
-        if (loginLink) {
-          loginLink.textContent = `Hi, ${username}`;
-          loginLink.href = '#';
-          loginLink.onclick = null;
-        }
+        if (loginItem) loginItem.style.display = 'none';
+        if (userItem) userItem.style.display = 'flex';
+        if (usernameSpan) usernameSpan.textContent = `Hi, ${username}`;
+      } else {
+        if (loginItem) loginItem.style.display = '';
+        if (userItem) userItem.style.display = 'none';
       }
-    });
+      if (logoutLink) {
+        logoutLink.onclick = function(e) {
+          e.preventDefault();
+          localStorage.removeItem('userEmail');
+          updateNavbar();
+        };
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', updateNavbar);
+
+    // Giriş işleminin başarılı olduğu yerde (ör: kod doğrulama sonrası) şunu ekle:
+    // localStorage.setItem('userEmail', email);
+    // updateNavbar();
   </script>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
